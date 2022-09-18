@@ -1,0 +1,21 @@
+.register__signin {
+ margin-top: 15px;
+ font-weight: 400;
+ font-size: 14px;
+ line-height: 1.21;
+ text-align: center;
+ color: #fff;
+ transition: opacity 0.3s linear;
+ cursor: pointer;
+ text-decoration: none;
+}
+
+.register__signin:hover {
+ opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+ .register__signin {
+  margin-top: 20px;
+ }
+}

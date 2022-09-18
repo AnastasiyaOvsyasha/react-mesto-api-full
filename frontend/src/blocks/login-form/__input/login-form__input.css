@@ -1,0 +1,11 @@
+.login-form__input {
+ padding: 0 0 13px;
+ font-weight: 500;
+ font-size: 14px;
+ line-height: 1.21;
+ background-color: black;
+ border-bottom: 2px solid rgba(204, 204, 204, 1);
+ border: none;
+ outline: none;
+ color: #fff;
+}

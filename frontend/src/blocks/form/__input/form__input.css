@@ -1,0 +1,26 @@
+.form__input {
+  width: 358px;
+  margin: 0 auto 30px;
+  padding: 0;
+  padding-bottom: 9px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #000;
+  box-sizing: border-box;
+  border: none;
+  transition: padding .4s ease-in-out;
+  border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
+}
+
+@media screen and (max-width: 570px) {
+  .form__input {
+    width: 238px;
+  }
+}
+
+.form__input::placeholder {
+  color: #c4c4c4;
+}

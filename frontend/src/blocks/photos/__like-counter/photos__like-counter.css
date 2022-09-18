@@ -1,0 +1,11 @@
+.photos__like-counter {
+  margin: 0;
+  padding: 0;
+  line-height: 1.21;
+  min-height: 13px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+}

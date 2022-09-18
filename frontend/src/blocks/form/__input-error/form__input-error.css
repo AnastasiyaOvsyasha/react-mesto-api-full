@@ -1,0 +1,23 @@
+.form__input-error {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25;
+  opacity: 0;
+  margin: -30px 25px 30px 35px;
+  display: block;
+  transition: 0.3s;
+  color: #ff0000;
+  position: fixed;
+  width: 358px;
+  text-align: justify;
+}
+
+@media screen and (max-width: 570px) {
+  .form__input-error {
+    margin: -30px 0 40px 23px;
+    position: absolute;
+    text-align: left;
+    max-width: 238px;
+  }
+}

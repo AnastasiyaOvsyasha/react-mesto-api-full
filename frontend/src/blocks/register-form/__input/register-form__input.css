@@ -1,0 +1,11 @@
+.register-form__input {
+  padding: 0 0 13px;
+  outline: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+  background-color: black;
+  border: none;
+  border-bottom: 2px solid rgba(204, 204, 204, 1);
+  color: #fff;
+}
