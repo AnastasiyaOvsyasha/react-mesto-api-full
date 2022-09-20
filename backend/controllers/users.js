@@ -8,6 +8,8 @@ const ErrorConflict = require('../errors/ErrorConflict');
 const AuthorizationError = require('../errors/AuthorizationError');
 const ErrorServer = require('../errors/ErrorServer');
 
+const { NODE_ENV, JWT_SECRET = 'secret-key' } = process.env;
+
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
@@ -132,7 +134,7 @@ module.exports.login = async (req, res, next) => {
     if (!validPassword) {
       return next(new AuthorizationError('Некорректно введены почта или пароль'));
     }
-    const token = jwt.sign({ _id: user._id }, 'secret-key');
+    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'secret-key');
     res.cookie('jwt', token, {
       httpOnly: true,
       sameSite: true,

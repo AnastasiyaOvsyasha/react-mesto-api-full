@@ -43,6 +43,7 @@
     "config": "^3.3.8",
     "logform": "^2.4.2",
     "transports": "^1.2.2",
-    "winston-transport": "^4.5.0"
+    "winston-transport": "^4.5.0",
+    "dotenv": "^16.0.2"
   }
 }

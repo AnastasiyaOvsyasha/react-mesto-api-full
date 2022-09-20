@@ -1,4 +1,4 @@
-require('dotenv').config(); //
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet'); //
@@ -31,6 +31,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post(
   '/signin',
@@ -85,10 +91,7 @@ app.get('/crash-test', () => {
 // подключаемся к серверу mongo
 async function main(req, res, next) {
   try {
-    await mongoose.connect('mongodb://localhost:27017/mestodb', {
-      useNewUrlParser: true,
-      useUnifiedTopology: false,
-    });
+    await mongoose.connect('mongodb://localhost:27017/mestodb');
     await app.listen(PORT);
   } catch (error) {
     next(new ErrorServer('Ошибка на сервере'));
