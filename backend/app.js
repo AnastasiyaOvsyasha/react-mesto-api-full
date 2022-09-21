@@ -11,7 +11,6 @@ const { celebrate, Joi, errors } = require('celebrate');
 const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
 const ErrorNotFound = require('./errors/ErrorNotFound');
-const ErrorServer = require('./errors/ErrorServer');
 
 const { PORT = 4000 } = process.env; //
 
@@ -100,13 +99,15 @@ app.get('/crash-test', () => {
 });
 
 // подключаемся к серверу mongo
-async function main(req, res, next) {
-  try {
-    await mongoose.connect('mongodb://localhost:27017/mestodb');
-    await app.listen(PORT);
-  } catch (error) {
-    next(new ErrorServer('Ошибка на сервере'));
-  }
+async function main() {
+  await mongoose.connect('mongodb://localhost:27017/mestodb', {
+    useNewUrlParser: true,
+    useUnifiedTopology: false,
+  });
+  await app.listen(PORT);
+
+  // eslint-disable-next-line no-console
+  console.log(`App listening on port ${PORT}`);
 }
 
 main();
