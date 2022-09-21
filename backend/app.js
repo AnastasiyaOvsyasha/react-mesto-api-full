@@ -15,14 +15,25 @@ const ErrorServer = require('./errors/ErrorServer');
 
 const { PORT = 4000 } = process.env; //
 
-const limiter = rateLimit({ //
+const limiter = rateLimit({
+  //
   windowMs: 15 * 60 * 1000,
   max: 1000,
 });
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      'http://localhost:4000',
+      'crazywomen.nomoredomains.sbs',
+      'https://AnastasiyaOvsyasha.github.io/react-mesto-auth/',
+      'crazywomen.nomoredomains.sbs',
+    ],
+    credentials: true,
+  }),
+);
 
 app.use(helmet());
 app.use(limiter);
