@@ -24,11 +24,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      'crazywomen.nomoredomains.sbs',
-      'https://AnastasiyaOvsyasha.github.io/react-mesto-auth/',
-      'crazywomen.nomoredomains.sbs',
-    ],
+    origin:
+      'https://crazy.nomoredomains.sbs',
     credentials: true,
   }),
 );
@@ -101,8 +98,6 @@ app.get('/crash-test', () => {
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/mestodb', {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    family: 4,
   });
   await app.listen(PORT);
 

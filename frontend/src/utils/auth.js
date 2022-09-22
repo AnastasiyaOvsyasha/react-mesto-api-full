@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:4000";
+const baseUrl = "https://crazywomen.nomoredomains.sbs";
 const headers = { "Content-Type": "application/json" };
 
 function checkAnswer(res) {
