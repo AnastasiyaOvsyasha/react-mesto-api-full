@@ -25,7 +25,6 @@ const app = express();
 app.use(
   cors({
     origin: [
-      'http://localhost:4000',
       'crazywomen.nomoredomains.sbs',
       'https://AnastasiyaOvsyasha.github.io/react-mesto-auth/',
       'crazywomen.nomoredomains.sbs',
