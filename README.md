@@ -1,4 +1,4 @@
-[![Tests for sprint 15](https://github.com/AnastasiyaOvsyasha/react-mesto-api-full/actions/workflows/tests-15-sprint.yml/badge.svg)](https://github.com/AnastasiyaOvsyasha/react-mesto-api-full/actions/workflows/tests-15-sprint.yml)
+[![Tests](https://github.com/AnastasiyaOvsyasha/react-mesto-api-full/actions/workflows/tests.yml/badge.svg)](https://github.com/AnastasiyaOvsyasha/react-mesto-api-full/actions/workflows/tests.yml)
 
 # react-mesto-api-full
 
