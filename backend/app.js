@@ -10,7 +10,9 @@ const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
-const { createUser, login } = require('./controllers/users');
+const {
+  createUser, login, logout,
+} = require('./controllers/users');
 const ErrorNotFound = require('./errors/ErrorNotFound');
 
 const { PORT = 3000 } = process.env; //
@@ -44,6 +46,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(requestLogger);
 app.use(errorLogger);
+app.get('/logout', logout);
 
 app.get('/crash-test', () => {
   setTimeout(() => {

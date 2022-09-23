@@ -123,6 +123,15 @@ module.exports.updateUserAvatar = (req, res, next) => {
     });
 };
 
+module.exports.logout = (req, res) => {
+  res.clearCookie('jwt');
+  res.send({
+    status: 'Bye!',
+  });
+};
+
+module.exports.checkAnswer = (req, res) => (req.cookies.jwt ? res.send(true) : res.send(false));
+
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
