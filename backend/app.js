@@ -31,6 +31,10 @@ app.use(
   }),
 );
 
+app.use(
+  cors(),
+);
+
 app.use(helmet());
 app.use(limiter);
 
