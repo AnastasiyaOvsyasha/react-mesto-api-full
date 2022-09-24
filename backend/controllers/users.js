@@ -9,7 +9,6 @@ const AuthorizationError = require('../errors/AuthorizationError');
 const ErrorServer = require('../errors/ErrorServer');
 
 const { NODE_ENV, JWT_SECRET = 'secret-key' } = process.env;
-
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
@@ -35,7 +34,6 @@ module.exports.createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
-
   bcrypt.hash(password, 10)
     .then((hashedPassword) => {
       User.create({
@@ -123,6 +121,15 @@ module.exports.updateUserAvatar = (req, res, next) => {
     });
 };
 
+module.exports.logout = (req, res) => {
+  res.clearCookie('jwt');
+  res.send({
+    status: 'Bye!',
+  });
+};
+
+module.exports.checkAnswer = (req, res) => (req.cookies.jwt ? res.send(true) : res.send(false));
+
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
@@ -138,7 +145,6 @@ module.exports.login = async (req, res, next) => {
     res.cookie('jwt', token, {
       httpOnly: true,
       sameSite: true,
-      secure: true,
       token: `JWT${token}`,
     });
     return res.status(200).send(user);

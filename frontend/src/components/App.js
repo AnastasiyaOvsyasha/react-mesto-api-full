@@ -22,7 +22,6 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -44,14 +43,14 @@ function App() {
   }, [loggedIn]);
 
   useEffect(() => {
-   checkToken();
+    checkToken();
   }, []);
 
   useEffect(() => {
     if (loggedIn) {
       history.push("/");
     }
-  }, [loggedIn]);
+  }, [history, loggedIn]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -73,7 +72,6 @@ function App() {
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)
@@ -192,13 +190,12 @@ function App() {
         .catch((err) => console.log(err));
     }
   }
-
+  
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="root">
           <Header email={userEmail} onLogOut={handleSignOut} />
-
           <Switch>
             <ProtectedRoute
               exact
@@ -216,18 +213,14 @@ function App() {
             <Route path="/sign-up">
               <Register onRegister={handleRegister} />
             </Route>
-
             <Route path="/sign-in">
               <Login onLogin={handleLogin} />
             </Route>
-
             <Route>
               {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
             </Route>
           </Switch>
-
           <Footer />
-
           <EditProfilePopup
             buttonText="Сохранить"
             isOpen={isEditProfilePopupOpen}
@@ -235,7 +228,6 @@ function App() {
             onUpdateUser={handleUpdateUser}
             isLoading={loading}
           />
-
           <EditAvatarPopup
             buttonText="Сохранить"
             isOpen={isEditAvatarPopupOpen}
@@ -243,7 +235,6 @@ function App() {
             onUpdateAvatar={handleUpdateAvatar}
             isLoading={loading}
           />
-
           <AddPlacePopup
             buttonText="Сохранить"
             isOpen={isAddPlacePopupOpen}
@@ -251,13 +242,11 @@ function App() {
             onAddPlace={handleAddPlaceSubmit}
             isLoading={loading}
           />
-
           <InfoTooltip
             isOpen={isInfoTooltipOpen}
             onClose={closeAllPopups}
             type={isSuccessSignUp}
           />
-
           <ImagePopup
             card={selectedCard}
             isOpen={isImagePopupOpen}
