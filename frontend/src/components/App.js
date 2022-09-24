@@ -36,13 +36,22 @@ function App() {
     if (!loggedIn) {
       return;
     }
-    checkToken();
     Promise.all([api.getDataUser(), api.getInitialCardsData()])
       .then(([userData, cards]) => {
         setCurrentUser(userData);
         setCards(cards);
       })
       .catch((err) => console.log(err));
+  }, [loggedIn]);
+
+  useEffect(() => {
+   checkToken();
+  }, []);
+
+  useEffect(() => {
+    if (loggedIn) {
+      history.push("/");
+    }
   }, [loggedIn]);
 
   function handleEditAvatarClick() {
@@ -64,7 +73,7 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((user) => (user = currentUser._id));
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
@@ -147,7 +156,6 @@ function App() {
   }
 
   function handleLogin({ email, password }) {
-   console.log(document.cookie)
     auth
       .authorize(email, password)
       .then((res) => {
@@ -172,16 +180,14 @@ function App() {
   }
 
   function checkToken() {
-    console.log(localStorage);
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       auth
-        .checkToken(jwt)
+        .getContent(jwt)
         .then((res) => {
           if (res) {
             setLoggedIn(true);
             setUserEmail(res.data.email);
-            history.push("/");
           }
         })
         .catch((err) => console.log(err));
