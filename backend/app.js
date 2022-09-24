@@ -10,9 +10,7 @@ const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
-const {
-  createUser, login, logout,
-} = require('./controllers/users');
+const { createUser, login } = require('./controllers/users');
 const ErrorNotFound = require('./errors/ErrorNotFound');
 
 const { PORT = 3000 } = process.env; //
@@ -27,15 +25,15 @@ const app = express();
 
 app.use(
   cors({
-    origin:
+    origin: [
+      'http://crazy.nomoredomains.sbs',
       'https://crazy.nomoredomains.sbs',
+    ],
     credentials: true,
   }),
 );
 
-app.use(
-  cors(),
-);
+app.use(cors());
 
 app.use(helmet());
 app.use(limiter);
@@ -46,7 +44,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(requestLogger);
 app.use(errorLogger);
-app.get('/logout', logout);
 
 app.get('/crash-test', () => {
   setTimeout(() => {

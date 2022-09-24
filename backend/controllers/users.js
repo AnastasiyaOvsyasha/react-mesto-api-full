@@ -123,15 +123,6 @@ module.exports.updateUserAvatar = (req, res, next) => {
     });
 };
 
-module.exports.logout = (req, res) => {
-  res.clearCookie('jwt');
-  res.send({
-    status: 'Bye!',
-  });
-};
-
-module.exports.checkAnswer = (req, res) => (req.cookies.jwt ? res.send(true) : res.send(false));
-
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
@@ -147,6 +138,7 @@ module.exports.login = async (req, res, next) => {
     res.cookie('jwt', token, {
       httpOnly: true,
       sameSite: true,
+      secure: true,
       token: `JWT${token}`,
     });
     return res.status(200).send(user);
