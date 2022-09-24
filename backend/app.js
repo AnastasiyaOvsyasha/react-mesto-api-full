@@ -20,6 +20,7 @@ const limiter = rateLimit({
   max: 1000,
 });
 const app = express();
+
 app.use(
   cors({
     origin: 'https://crazy.nomoredomains.sbs',
@@ -28,6 +29,7 @@ app.use(
 );
 app.use(helmet());
 app.use(limiter);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -73,17 +75,14 @@ app.use('*', (req, res, next) => {
   next(new ErrorNotFound('Страница не найдена'));
 });
 app.use(errors());
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = statusCode === 500 ? 'На сервере произошла ошибка' : err.message;
   res.status(statusCode).send({ message });
   next();
 });
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+
 // подключаемся к серверу mongo
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/mestodb', {
