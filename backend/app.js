@@ -13,9 +13,8 @@ const auth = require('./middlewares/auth');
 const { createUser, login } = require('./controllers/users');
 const ErrorNotFound = require('./errors/ErrorNotFound');
 
-const { PORT = 3000 } = process.env; //
+const { PORT = 3000 } = process.env;
 const limiter = rateLimit({
-  //
   windowMs: 15 * 60 * 1000,
   max: 1000,
 });

@@ -51,7 +51,7 @@ function App() {
     if (loggedIn) {
       history.push("/");
     }
-  }, [history, loggedIn]);
+  }, [loggedIn]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
