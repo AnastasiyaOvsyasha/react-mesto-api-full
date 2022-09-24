@@ -36,9 +36,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
-app.use(requestLogger);
-app.use(errorLogger);
 app.get('/logout', logout);
+
+app.use(requestLogger);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -76,11 +76,13 @@ app.use(auth);
 app.use('/cards', require('./routes/cards'));
 app.use('/users', require('./routes/users'));
 
+app.use(errorLogger);
+
+app.use(errors());
+
 app.use('*', (req, res, next) => {
   next(new ErrorNotFound('Страница не найдена'));
 });
-
-app.use(errors());
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
