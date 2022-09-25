@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const helmet = require('helmet'); //
 const cors = require('cors'); //
 const rateLimit = require('express-rate-limit'); //
-
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
@@ -13,6 +12,7 @@ const auth = require('./middlewares/auth');
 const {
   createUser, login, logout,
 } = require('./controllers/users');
+
 const ErrorNotFound = require('./errors/ErrorNotFound');
 
 const { PORT = 3000 } = process.env;
@@ -21,24 +21,19 @@ const limiter = rateLimit({
   max: 1000,
 });
 const app = express();
-
 app.use(
   cors({
     origin: 'https://crazy.nomoredomains.sbs',
     credentials: true,
-    optionSuccessStatus: 200,
   }),
 );
-
 app.use(helmet());
 app.use(limiter);
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.get('/logout', logout);
-
 app.use(requestLogger);
 
 app.get('/crash-test', () => {
@@ -47,7 +42,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 app.post(
-  '/sign-in',
+  '/signin',
   celebrate({
     body: Joi.object().keys({
       password: Joi.string().required(),
@@ -56,9 +51,8 @@ app.post(
   }),
   login,
 );
-
 app.post(
-  '/sign-up',
+  '/signup',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30),
