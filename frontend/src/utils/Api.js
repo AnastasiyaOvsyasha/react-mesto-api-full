@@ -1,100 +1,101 @@
+/* eslint-disable prefer-promise-reject-errors */
 class Api {
-  constructor(options) {
-    this._baseUrl = options.baseUrl;
-    this._token = options.headers.authorization;
+  constructor (options) {
+    this._baseUrl = options.baseUrl
+    this._token = options.headers.authorization
   }
 
-  _checkAnswer(res) {
+  _checkAnswer (res) {
     if (res.ok) {
-      return res.json();
+      return res.json()
     }
-    return Promise.reject(`Ошибка ${res.status}`);
+    return Promise.reject(`Ошибка ${res.status}`)
   }
 
-  getDataUser() {
+  getDataUser () {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        authorization: this._token,
-      },
-    }).then(this._checkAnswer);
+        authorization: this._token
+      }
+    }).then(this._checkAnswer)
   }
 
-  getInitialCardsData() {
+  getInitialCardsData () {
     return fetch(`${this._baseUrl}/cards`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        authorization: this._token,
-      },
-    }).then(this._checkAnswer);
+        authorization: this._token
+      }
+    }).then(this._checkAnswer)
   }
 
-  setDataUser(name, about) {
+  setDataUser (name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
         authorization: this._token,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: name,
-        about: about,
-      }),
-    }).then(this._checkAnswer);
+        name,
+        about
+      })
+    }).then(this._checkAnswer)
   }
 
-  addCard(card) {
+  addCard (card) {
     return fetch(`${this._baseUrl}/cards`, {
-      method: "POST",
+      method: 'POST',
       headers: {
         authorization: this._token,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         name: card.name,
-        link: card.link,
-      }),
-    }).then(this._checkAnswer);
+        link: card.link
+      })
+    }).then(this._checkAnswer)
   }
 
-  updateUserAvatar(avatar) {
+  updateUserAvatar (avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
         authorization: this._token,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar: avatar,
-      }),
-    }).then(this._checkAnswer);
+        avatar
+      })
+    }).then(this._checkAnswer)
   }
 
-  deleteCard(_id) {
+  deleteCard (_id) {
     return fetch(`${this._baseUrl}/cards/${_id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        authorization: this._token,
-      },
-    }).then(this._checkAnswer);
+        authorization: this._token
+      }
+    }).then(this._checkAnswer)
   }
 
-  changeLikeCardStatus(_id, like) {
+  changeLikeCardStatus (_id, like) {
     return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
-      method: like ? "PUT" : "DELETE",
+      method: like ? 'PUT' : 'DELETE',
       headers: {
-        authorization: this._token,
-      },
-    }).then(this._checkAnswer);
+        authorization: this._token
+      }
+    }).then(this._checkAnswer)
   }
 }
 
 const api = new Api({
-  baseUrl: "https://crazywomen.nomoredomains.sbs",
+  baseUrl: 'https://crazywomen.nomoredomains.sbs',
   headers: {
-    authorization: "4a54ce76-e7c6-4200-bbf8-f4a56f498098", //вставить токен
-    "Content-Type": "application/json",
-  },
-});
+    authorization: '4a54ce76-e7c6-4200-bbf8-f4a56f498098', // вставить токен
+    'Content-Type': 'application/json'
+  }
+})
 
-export default api;
+export default api

@@ -26,6 +26,7 @@ app.use(
   cors({
     origin: 'https://crazy.nomoredomains.sbs',
     credentials: true,
+    optionSuccessStatus: 200,
   }),
 );
 
@@ -46,7 +47,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 app.post(
-  '/signin',
+  '/sign-in',
   celebrate({
     body: Joi.object().keys({
       password: Joi.string().required(),
@@ -57,7 +58,7 @@ app.post(
 );
 
 app.post(
-  '/signup',
+  '/sign-up',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30),
