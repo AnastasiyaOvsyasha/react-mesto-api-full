@@ -6,7 +6,7 @@ function checkAnswer (res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
 }
 
-export function register (email, password) {
+export function register ({ email, password }) {
   return fetch(`${baseUrl}/signup`, {
     method: 'POST',
     headers,
@@ -14,7 +14,7 @@ export function register (email, password) {
   }).then((res) => checkAnswer(res))
 };
 
-export function authorize (email, password) {
+export function authorize ({ email, password }) {
   return fetch(`${baseUrl}/signin`, {
     method: 'POST',
     headers,

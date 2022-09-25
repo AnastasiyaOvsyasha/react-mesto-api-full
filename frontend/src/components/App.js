@@ -136,15 +136,13 @@ function App () {
     setIsInfoTooltipOpen(false)
   }
 
-  function handleRegister ({ email, password }) {
+  function handleRegister (data) {
     auth
-      .register(email, password)
-      .then((res) => {
-        if (res) {
-          setIsSuccessSignUp(true)
-          setIsInfoTooltipOpen(true)
-          history.push('/sign-in')
-        }
+      .register(data)
+      .then(() => {
+        setIsSuccessSignUp(true)
+        setIsInfoTooltipOpen(true)
+        history.push('/signin')
       })
       .catch((err) => {
         setIsSuccessSignUp(false)
@@ -153,44 +151,38 @@ function App () {
       })
   }
 
-  function handleLogin ({ email, password }) {
+  function handleLogin (data) {
     auth
-      .authorize(email, password)
+      .authorize(data)
       .then((res) => {
-        const { token } = res
-        if (token) {
-          setLoggedIn(true)
-          setUserEmail(email)
-          localStorage.setItem('jwt', token)
-        }
+        setLoggedIn(true)
+        localStorage.setItem('jwt', res.token)
+        history.push('/')
       })
-      .catch((err) => {
-        setIsSuccessSignUp(false)
-        setIsInfoTooltipOpen(true)
-        console.log(err)
-      })
+      .catch((err) => console.log(err))
   }
 
   function handleSignOut () {
     localStorage.removeItem('jwt')
     setLoggedIn(false)
-    history.push('/sign-in')
+    history.push('/signin')
   }
 
   function checkToken () {
     const jwt = localStorage.getItem('jwt')
-    if (jwt) {
-      auth
-        .getContent(jwt)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true)
-            setUserEmail(res.data.email)
-            history.push('/')
-          }
-        })
-        .catch((err) => console.log(err))
+    if (!jwt) {
+      return
     }
+    auth
+      .getContent(jwt)
+      .then((res) => {
+        if (res) {
+          setLoggedIn(true)
+          setUserEmail(res.data.email)
+          history.push('/')
+        }
+      })
+      .catch((err) => console.log(err))
   }
 
   return (
@@ -212,14 +204,14 @@ function App () {
               onCardDelete={handleCardDelete}
               cards={cards}
             />
-            <Route path="/sign-up">
+            <Route path="/signup">
               <Register onRegister={handleRegister} />
             </Route>
-            <Route path="/sign-in">
+            <Route path="/signin">
               <Login onLogin={handleLogin} />
             </Route>
             <Route>
-              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+              {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
             </Route>
           </Switch>
           <Footer />
