@@ -91,7 +91,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://crazywomen.nomoredomains.sbs',
+  baseUrl: 'http://localhost:4000',
   headers: {
     authorization: '4a54ce76-e7c6-4200-bbf8-f4a56f498098', // вставить токен
     'Content-Type': 'application/json'

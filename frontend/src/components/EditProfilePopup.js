@@ -1,33 +1,33 @@
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import { useContext, useState } from "react";
-import PopupWithForm from "./PopupWithForm";
-import React from 'react';
+/* eslint-disable react/prop-types */
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import React, { useContext, useState } from 'react'
+import PopupWithForm from './PopupWithForm'
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-  const currentUser = useContext(CurrentUserContext);
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserChangeDescription] = useState("");
+function EditProfilePopup ({ isOpen, onClose, onUpdateUser }) {
+  const currentUser = useContext(CurrentUserContext)
+  const [userName, setUserName] = useState('')
+  const [userDescription, setUserChangeDescription] = useState('')
 
-  function handleNameChange(evt) {
-    setUserName(evt.target.value);
+  function handleNameChange (evt) {
+    setUserName(evt.target.value)
   }
 
-  function handleDescriptionChange(evt) {
-    setUserChangeDescription(evt.target.value);
+  function handleDescriptionChange (evt) {
+    setUserChangeDescription(evt.target.value)
   }
 
   React.useEffect(() => {
-    setUserName(currentUser.name);
-    setUserChangeDescription(currentUser.about);
-  }, [currentUser, isOpen]);
+    setUserName(currentUser.name)
+    setUserChangeDescription(currentUser.about)
+  }, [currentUser, isOpen])
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
+  function handleSubmit (evt) {
+    evt.preventDefault()
 
     onUpdateUser({
       name: userName,
-      about: userDescription,
-    });
+      about: userDescription
+    })
   }
 
   return (
@@ -44,7 +44,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         data-input="edit-profile-name-input"
         id="profile-name"
         type="text"
-        value={userName || ""}
+        value={userName || ''}
         onChange={handleNameChange}
         name="form__input_type_text"
         placeholder="Имя"
@@ -62,7 +62,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         data-input="edit-profile-about-input"
         id="profile-about"
         type="text"
-        value={userDescription || ""}
+        value={userDescription || ''}
         onChange={handleDescriptionChange}
         name="form__input_type_about"
         placeholder="О себе"
@@ -76,7 +76,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         id="profile-about-error"
       ></span>
     </PopupWithForm>
-  );
+  )
 }
 
-export default EditProfilePopup;
+export default EditProfilePopup

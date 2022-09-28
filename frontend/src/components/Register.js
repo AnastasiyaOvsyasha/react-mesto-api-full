@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-function Register({ onRegister }) {
-  const [data, setData] = useState({ email: "", password: "" });
+function Register ({ onRegister }) {
+  const [data, setData] = useState({ email: '', password: '' })
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setData({
       ...data,
-      [name]: value,
-    });
-  };
+      [name]: value
+    })
+  }
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    const { email, password } = data;
-    onRegister({ email, password });
+  function handleSubmit (evt) {
+    evt.preventDefault()
+    const { email, password } = data
+    onRegister({ email, password })
   }
 
   return (
@@ -55,7 +56,7 @@ function Register({ onRegister }) {
         </Link>
       </div>
     </div>
-  );
+  )
 }
 
-export default Register;
+export default Register

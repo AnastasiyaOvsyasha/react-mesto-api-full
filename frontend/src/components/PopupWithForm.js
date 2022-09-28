@@ -1,10 +1,11 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from 'react'
 
-function PopupWithForm(props) {
+function PopupWithForm (props) {
   return (
     <div
       className={`popup popup_type_${props.name} ${
-        props.isOpen && "popup_opened"
+        props.isOpen && 'popup_opened'
       }`}
     >
       <div className="popup__container">
@@ -29,7 +30,7 @@ function PopupWithForm(props) {
         </form>
       </div>
     </div>
-  );
+  )
 }
 
-export default PopupWithForm;
+export default PopupWithForm

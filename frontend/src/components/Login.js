@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react'
 
-function Login({ onLogin }) {
-  const [data, setData] = useState({ email: "", password: "" });
+function Login ({ onLogin }) {
+  const [data, setData] = useState({ email: '', password: '' })
 
   const handleChange = (evt) => {
-    const { name, value } = evt.target;
+    const { name, value } = evt.target
     setData({
       ...data,
-      [name]: value,
-    });
-  };
+      [name]: value
+    })
+  }
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    onLogin(data);
+  function handleSubmit (evt) {
+    evt.preventDefault()
+    onLogin(data)
   }
 
   return (
@@ -47,7 +48,7 @@ function Login({ onLogin }) {
         </button>
       </form>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login

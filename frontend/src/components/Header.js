@@ -1,8 +1,9 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from 'react'
 import Logo from '../images/logo.svg'
-import { Route, Link } from "react-router-dom";
+import { Route, Link } from 'react-router-dom'
 
-function Header({ email, onLogOut }) {
+function Header ({ email, onLogOut }) {
   return (
     <header className="header">
       <img
@@ -29,7 +30,7 @@ function Header({ email, onLogOut }) {
     </Route>
 </header>
 
-);
+  )
 }
 
-export default Header;
+export default Header

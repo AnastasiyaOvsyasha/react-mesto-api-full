@@ -1,17 +1,19 @@
-import { useContext } from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import Card from "./Card";
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+import { useContext } from 'react'
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import Card from './Card'
 
-function Main({
+function Main ({
   onEditAvatar,
   onEditProfile,
   onAddPlace,
   onCardClick,
   cards,
   onCardLike,
-  onCardDelete,
+  onCardDelete
 }) {
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext)
 
   return (
     <main className="container">
@@ -57,7 +59,7 @@ function Main({
         </ul>
       </section>
     </main>
-  );
+  )
 }
 
-export default Main;
+export default Main

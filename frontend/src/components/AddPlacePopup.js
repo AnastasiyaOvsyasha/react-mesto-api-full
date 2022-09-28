@@ -1,22 +1,24 @@
-import { useState, useEffect } from "react";
-import PopupWithForm from "./PopupWithForm";
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from 'react'
+import PopupWithForm from './PopupWithForm'
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const [values, setValues] = useState({ name: "", link: "" });
+function AddPlacePopup ({ isOpen, onClose, onAddPlace }) {
+  const [values, setValues] = useState({ name: '', link: '' })
 
-  function handleChange(evt) {
-    const { value, name } = evt.target;
-    setValues({ ...values, [name]: value });
+  function handleChange (evt) {
+    const { value, name } = evt.target
+    setValues({ ...values, [name]: value })
   }
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    onAddPlace(values);
+  function handleSubmit (evt) {
+    evt.preventDefault()
+    onAddPlace(values)
   }
 
   useEffect(() => {
-    setValues({ name: "", about: "" });
-  }, [isOpen]);
+    setValues({ name: '', about: '' })
+  }, [isOpen])
 
   return (
     <PopupWithForm
@@ -33,7 +35,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         data-input="add-photo-name-input"
         type="text"
         name="name"
-        value={values.name || ""}
+        value={values.name || ''}
         onChange={handleChange}
         placeholder="Название"
         required
@@ -52,7 +54,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         data-input="add-photo-link-input"
         type="url"
         name="link"
-        value={values.link || ""}
+        value={values.link || ''}
         onChange={handleChange}
         id="photo-link"
         placeholder="Ссылка на картинку"
@@ -66,7 +68,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         aria-live="polite"
       ></span>
     </PopupWithForm>
-  );
+  )
 }
 
-export default AddPlacePopup;
+export default AddPlacePopup

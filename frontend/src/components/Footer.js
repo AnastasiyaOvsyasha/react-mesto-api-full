@@ -1,9 +1,10 @@
-function Footer() {
+/* eslint-disable react/react-in-jsx-scope */
+function Footer () {
   return (
     <footer className="footer">
       <p className="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-  );
+  )
 }
 
-export default Footer;
+export default Footer
