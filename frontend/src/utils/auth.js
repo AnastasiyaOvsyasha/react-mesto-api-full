@@ -1,5 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
-const baseUrl = 'http://localhost:4000'
+const baseUrl = 'http://crazywomen.nomoredomains.sbs'
 const headers = { 'Content-Type': 'application/json' }
 
 function checkAnswer (res) {
@@ -17,18 +17,26 @@ export function register ({ email, password }) {
 export function authorize ({ email, password }) {
   return fetch(`${baseUrl}/signin`, {
     method: 'POST',
+    credentials: 'include',
     headers,
     body: JSON.stringify({ email, password })
   }).then((res) => checkAnswer(res))
 };
 
-export function getContent (token) {
-  return fetch(`${baseUrl}/users/me`, {
+export function checkToken () {
+  return fetch(`${baseUrl}/checktoken`, {
     method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    }
-  }).then((res) => checkAnswer(res))
+    headers,
+    credentials: 'include'
+  })
+    .then((res) => checkAnswer(res))
+}
+
+export function logout () {
+  return fetch(`${baseUrl}/logout`, {
+    method: 'GET',
+    headers,
+    credentials: 'include'
+  })
+    .then((res) => checkAnswer(res))
 };

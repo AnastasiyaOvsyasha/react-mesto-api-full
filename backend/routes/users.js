@@ -7,10 +7,14 @@ const {
   getUserId,
   editUserProfile,
   updateUserAvatar,
+  checkToken,
+  logout,
 } = require('../controllers/users');
 
 userRouter.get('/', getUsers);
 userRouter.get('/me', getUserInfo);
+userRouter.get('/logout', logout);
+userRouter.get('/checktoken', checkToken);
 
 userRouter.get(
   '/:userId',

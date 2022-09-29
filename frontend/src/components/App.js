@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 import * as auth from '../utils/auth'
@@ -29,7 +29,6 @@ function App () {
   const [loggedIn, setLoggedIn] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isSuccessSignUp, setIsSuccessSignUp] = useState(false)
-  const [userEmail, setUserEmail] = useState('')
 
   useEffect(() => {
     if (!loggedIn) {
@@ -42,16 +41,6 @@ function App () {
       })
       .catch((err) => console.log(err))
   }, [loggedIn])
-
-  useEffect(() => {
-    checkToken()
-  }, [])
-
-  useEffect(() => {
-    if (loggedIn) {
-      history.push('/')
-    }
-  }, [history, loggedIn])
 
   function handleEditAvatarClick () {
     setIsEditAvatarPopupOpen(true)
@@ -136,13 +125,13 @@ function App () {
     setIsInfoTooltipOpen(false)
   }
 
-  function handleRegister (data) {
+  function handleRegister ({ email, password }) {
     auth
-      .register(data)
-      .then(() => {
+      .register({ email, password })
+      .then((res) => {
         setIsSuccessSignUp(true)
         setIsInfoTooltipOpen(true)
-        history.push('/signin')
+        history.push('/sign-in')
       })
       .catch((err) => {
         setIsSuccessSignUp(false)
@@ -151,9 +140,9 @@ function App () {
       })
   }
 
-  function handleLogin (data) {
+  function handleLogin ({ email, password }) {
     auth
-      .authorize(data)
+      .authorize({ email, password })
       .then((res) => {
         setLoggedIn(true)
         localStorage.setItem('jwt', res.token)
@@ -163,33 +152,39 @@ function App () {
   }
 
   function handleSignOut () {
-    localStorage.removeItem('jwt')
-    setLoggedIn(false)
-    history.push('/signin')
-  }
-
-  function checkToken () {
-    const jwt = localStorage.getItem('jwt')
-    if (!jwt) {
-      return
-    }
     auth
-      .getContent(jwt)
-      .then((res) => {
-        if (res) {
-          setLoggedIn(true)
-          setUserEmail(res.data.email)
-          history.push('/')
-        }
+      .logout()
+      .then(() => {
+        setLoggedIn(false)
+        history.push('/sign-in')
       })
       .catch((err) => console.log(err))
   }
+
+  const checkToken = useCallback(() => {
+    auth
+      .checkToken()
+      .then((res) => {
+        if (res) {
+          setLoggedIn(true)
+          history.push('/')
+        } else {
+          setLoggedIn(false)
+          history.push('/sign-in')
+        }
+      })
+      .catch((err) => console.log(err))
+  }, [history])
+
+  useEffect(() => {
+    checkToken()
+  }, [checkToken])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="root">
-          <Header email={userEmail} onLogOut={handleSignOut} />
+          <Header email={currentUser?.email} onLogOut={handleSignOut} />
           <Switch>
             <ProtectedRoute
               exact
@@ -204,14 +199,14 @@ function App () {
               onCardDelete={handleCardDelete}
               cards={cards}
             />
-            <Route path="/signup">
+            <Route path="/sign-up">
               <Register onRegister={handleRegister} />
             </Route>
-            <Route path="/signin">
+            <Route path="/sign-in">
               <Login onLogin={handleLogin} />
             </Route>
             <Route>
-              {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
             </Route>
           </Switch>
           <Footer />

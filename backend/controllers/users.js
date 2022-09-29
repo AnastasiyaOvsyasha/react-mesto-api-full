@@ -124,11 +124,11 @@ module.exports.updateUserAvatar = (req, res, next) => {
 module.exports.logout = (req, res) => {
   res.clearCookie('jwt');
   res.send({
-    status: 'Bye!',
+    status: 'Выход выполнен',
   });
 };
 
-module.exports.checkAnswer = (req, res) => (req.cookies.jwt ? res.send(true) : res.send(false));
+module.exports.checkToken = (req, res) => (req.cookies.jwt ? res.send(true) : res.send(false));
 
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
