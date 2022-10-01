@@ -23,15 +23,6 @@ export function authorize ({ email, password }) {
   }).then((res) => checkAnswer(res))
 };
 
-export function checkToken () {
-  return fetch(`${baseUrl}/checktoken`, {
-    method: 'GET',
-    headers,
-    credentials: 'include'
-  })
-    .then((res) => checkAnswer(res))
-}
-
 export function logout () {
   return fetch(`${baseUrl}/logout`, {
     method: 'GET',

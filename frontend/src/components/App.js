@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 import * as auth from '../utils/auth'
@@ -160,25 +160,6 @@ function App () {
       })
       .catch((err) => console.log(err))
   }
-
-  const checkToken = useCallback(() => {
-    auth
-      .checkToken()
-      .then((res) => {
-        if (res) {
-          setLoggedIn(true)
-          history.push('/')
-        } else {
-          setLoggedIn(false)
-          history.push('/sign-in')
-        }
-      })
-      .catch((err) => console.log(err))
-  }, [history])
-
-  useEffect(() => {
-    checkToken()
-  }, [checkToken])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

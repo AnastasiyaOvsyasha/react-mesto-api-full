@@ -128,8 +128,6 @@ module.exports.logout = (req, res) => {
   });
 };
 
-module.exports.checkToken = (req, res) => (req.cookies.jwt ? res.send(true) : res.send(false));
-
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {

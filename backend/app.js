@@ -10,7 +10,7 @@ const { celebrate, Joi, errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const {
-  createUser, login, logout, checkToken,
+  createUser, login, logout,
 } = require('./controllers/users');
 
 const ErrorNotFound = require('./errors/ErrorNotFound');
@@ -34,7 +34,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.get('/logout', logout);
-app.get('/checktoken', checkToken);
 app.use(requestLogger);
 
 app.post(
