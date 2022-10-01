@@ -23,7 +23,10 @@ const limiter = rateLimit({
 const app = express();
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: [
+      'https://crazy.nomoredomains.sbs',
+      'http://crazy.nomoredomains.sbs',
+    ],
     credentials: true,
   }),
 );
