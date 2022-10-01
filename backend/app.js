@@ -15,7 +15,7 @@ const {
 
 const ErrorNotFound = require('./errors/ErrorNotFound');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 1000,
@@ -24,6 +24,7 @@ const app = express();
 app.use(
   cors({
     origin: [
+      'http://localhost:3000',
       'https://crazy.nomoredomains.sbs',
       'http://crazy.nomoredomains.sbs',
     ],
