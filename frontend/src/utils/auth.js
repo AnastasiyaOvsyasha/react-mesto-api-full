@@ -1,5 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
-const baseUrl = 'http://crazywomen.nomoredomains.sbs'
+const baseUrl = 'http://localhost:3001'
 const headers = { 'Content-Type': 'application/json' }
 
 function checkAnswer (res) {

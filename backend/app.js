@@ -10,12 +10,12 @@ const { celebrate, Joi, errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const {
-  createUser, login, logout,
+  createUser, login, logout, checkToken,
 } = require('./controllers/users');
 
 const ErrorNotFound = require('./errors/ErrorNotFound');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 1000,
@@ -23,7 +23,7 @@ const limiter = rateLimit({
 const app = express();
 app.use(
   cors({
-    origin: 'http://crazy.nomoredomains.sbs',
+    origin: 'http://localhost:3000',
     credentials: true,
   }),
 );
@@ -34,13 +34,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.get('/logout', logout);
+app.get('/checktoken', checkToken);
 app.use(requestLogger);
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
 app.post(
   '/signin',
   celebrate({
